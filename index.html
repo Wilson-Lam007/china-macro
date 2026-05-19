@@ -19,13 +19,14 @@
       --gray-600: #475569;
       --text: #1e293b;
     }
+    html { font-size: 18px; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;
       background: #eef2f7;
       color: var(--text);
-      font-size: 16px;
-      line-height: 1.7;
+      font-size: 18px;
+      line-height: 1.75;
     }
 
     /* ── Header ── */
@@ -35,14 +36,14 @@
       text-align: center;
     }
     header h1 {
-      font-size: 1.75rem;
+      font-size: 1.9rem;
       font-weight: 700;
       color: #fff;
       letter-spacing: .06em;
     }
     .header-meta {
       color: #93c5fd;
-      font-size: .92rem;
+      font-size: 1rem;
       margin-top: .35rem;
     }
     .header-meta strong { color: #fff; }
@@ -59,8 +60,8 @@
     nav a {
       color: #bfdbfe;
       text-decoration: none;
-      font-size: .92rem;
-      padding: .6rem 1.2rem;
+      font-size: 1rem;
+      padding: .65rem 1.3rem;
       border-bottom: 2px solid transparent;
       margin-bottom: -2px;
       transition: all .18s;
@@ -88,17 +89,17 @@
       border-left: 4px solid var(--navy);
     }
     .card-header h2 {
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: var(--navy);
     }
-    .card-body { padding: 1.1rem 1.2rem; }
+    .card-body { padding: 1.2rem 1.4rem; }
 
     /* ── Summary para ── */
     .summary-para {
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--gray-600);
-      line-height: 1.85;
+      line-height: 1.9;
       background: #eff6ff;
       border-left: 3px solid var(--blue);
       border-radius: 0 4px 4px 0;
@@ -108,24 +109,24 @@
     .summary-para strong { color: var(--navy); }
 
     /* ── Overview Table ── */
-    .ov-table { width: 100%; border-collapse: collapse; font-size: .97rem; }
+    .ov-table { width: 100%; border-collapse: collapse; font-size: 1.05rem; }
     .ov-table thead tr { background: var(--navy); color: #fff; }
-    .ov-table th { padding: .5rem .9rem; font-weight: 600; text-align: left; }
-    .ov-table td { padding: .5rem .9rem; border-bottom: 1px solid var(--gray-100); vertical-align: middle; }
+    .ov-table th { padding: .6rem 1rem; font-weight: 600; text-align: left; }
+    .ov-table td { padding: .6rem 1rem; border-bottom: 1px solid var(--gray-100); vertical-align: middle; }
     .ov-table tbody tr:nth-child(even) td { background: var(--gray-50); }
     .ov-table tbody tr:hover td { background: #dbeafe44; }
-    .val-num { font-weight: 700; font-size: 1.08rem; color: var(--navy); }
+    .val-num { font-weight: 700; font-size: 1.15rem; color: var(--navy); }
     .chg-up   { color: var(--red);   font-weight: 600; }
     .chg-down { color: var(--green); font-weight: 600; }
     .chg-flat { color: var(--gray-400); font-weight: 600; }
-    .interp { color: var(--gray-600); font-size: .92rem; }
+    .interp { color: var(--gray-600); font-size: 1rem; }
 
     /* ── Chart ── */
     .chart-wrap { position: relative; height: 270px; margin: .2rem 0 1rem; }
     .chart-analysis {
-      font-size: .97rem;
+      font-size: 1.05rem;
       color: var(--gray-600);
-      line-height: 1.85;
+      line-height: 1.9;
       background: var(--gray-50);
       border-left: 3px solid var(--blue);
       border-radius: 0 4px 4px 0;
@@ -140,12 +141,12 @@
     }
     .ob {
       border-radius: 5px;
-      padding: .9rem 1.1rem;
-      font-size: .97rem;
+      padding: 1rem 1.2rem;
+      font-size: 1.05rem;
     }
-    .ob h4 { font-size: 1rem; font-weight: 700; margin-bottom: .45rem; }
-    .ob ul { padding-left: 1.1rem; color: var(--gray-600); }
-    .ob ul li { margin-bottom: .3rem; }
+    .ob h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; }
+    .ob ul { padding-left: 1.2rem; color: var(--gray-600); }
+    .ob ul li { margin-bottom: .35rem; }
     .ob-base   { background: #eff6ff; border: 1px solid #bfdbfe; }
     .ob-base h4 { color: #1d4ed8; }
     .ob-risk   { background: #fff1f2; border: 1px solid #fecdd3; }
@@ -158,7 +159,7 @@
     /* ── Footer ── */
     footer {
       text-align: center;
-      font-size: .88rem;
+      font-size: .95rem;
       color: var(--gray-400);
       padding: 1.4rem;
       background: #fff;
@@ -363,7 +364,7 @@ indicators.forEach(ind => {
 
 // ── 图表通用 ──
 Chart.defaults.font.family = "'PingFang SC','Microsoft YaHei',system-ui";
-Chart.defaults.font.size   = 14;
+Chart.defaults.font.size   = 15;
 Chart.defaults.color       = '#475569';
 const gridColor = '#e2e8f0';
 const baseOpts  = {
