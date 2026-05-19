@@ -3,240 +3,280 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>中国月度宏观经济分析</title>
+  <title>中国宏观经济分析报告</title>
   <script src="chart.min.js"></script>
   <style>
     :root {
-      --bg: #0f172a;
-      --surface: #1e293b;
-      --border: #334155;
-      --accent: #38bdf8;
-      --accent2: #818cf8;
-      --accent3: #34d399;
-      --accent4: #fb923c;
-      --accent5: #f472b6;
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --red: #f87171;
-      --green: #4ade80;
+      --navy: #163172;
+      --blue: #2563eb;
+      --red: #dc2626;
+      --green: #16a34a;
+      --amber: #d97706;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --text: #1e293b;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
-      background: var(--bg);
+      font-family: 'PingFang SC','Microsoft YaHei','Noto Sans SC',sans-serif;
+      background: #eef2f7;
       color: var(--text);
-      line-height: 1.7;
+      font-size: 14px;
+      line-height: 1.65;
     }
-    header {
-      background: linear-gradient(135deg, #0c4a6e 0%, #1e1b4b 100%);
-      padding: 2.5rem 2rem 2rem;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-    }
-    header h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: .05em; }
-    header p  { color: var(--muted); margin-top: .4rem; font-size: .9rem; }
-    #update-time { color: var(--accent); font-weight: 600; }
 
+    /* ── Header ── */
+    header {
+      background: var(--navy);
+      padding: 1.6rem 2rem 1.2rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .06em;
+    }
+    .header-meta {
+      color: #93c5fd;
+      font-size: .82rem;
+      margin-top: .35rem;
+    }
+    .header-meta strong { color: #fff; }
+
+    /* ── Nav ── */
     nav {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem;
-      padding: 1rem 2rem;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; z-index: 99;
+      background: #1e3a8a;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
+      border-bottom: 2px solid #2563eb;
     }
     nav a {
-      color: var(--muted); text-decoration: none; font-size: .85rem;
-      padding: .3rem .9rem; border-radius: 999px;
-      border: 1px solid var(--border); transition: all .2s;
+      color: #bfdbfe;
+      text-decoration: none;
+      font-size: .82rem;
+      padding: .55rem 1.1rem;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all .18s;
     }
-    nav a:hover { color: var(--accent); border-color: var(--accent); }
+    nav a:hover { color: #fff; border-bottom-color: #60a5fa; }
 
-    main { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    /* ── Main ── */
+    main { max-width: 980px; margin: 1.4rem auto; padding: 0 1rem 3rem; }
 
-    section { margin-bottom: 3.5rem; }
-    h2 {
-      font-size: 1.2rem; font-weight: 700;
-      border-left: 4px solid var(--accent);
-      padding-left: .75rem; margin-bottom: 1.25rem;
-    }
-
-    /* ── 1. 结论卡片 ── */
-    .conclusion-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;
-    }
+    /* ── Card / Section ── */
     .card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: .75rem; padding: 1.25rem 1.5rem;
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.09);
+      margin-bottom: 1.2rem;
+      overflow: hidden;
     }
-    .card .tag {
-      font-size: .72rem; font-weight: 700; letter-spacing: .08em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: .4rem;
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      padding: .7rem 1.2rem;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+      border-left: 4px solid var(--navy);
     }
-    .card p { color: var(--muted); font-size: .9rem; }
-    .card .val { font-size: 1.6rem; font-weight: 700; margin: .3rem 0 .3rem; }
-    .up   { color: var(--red); }
-    .down { color: var(--green); }
-    .neutral { color: var(--accent4); }
-    .summary-box {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: .75rem; padding: 1.5rem; margin-top: 1rem; font-size: .95rem;
+    .card-header h2 {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--navy);
     }
-    .summary-box strong { color: var(--accent); }
+    .card-body { padding: 1.1rem 1.2rem; }
 
-    /* ── 2. 数据表格 ── */
-    .table-wrap { overflow-x: auto; }
-    table {
-      width: 100%; border-collapse: collapse; font-size: .88rem;
+    /* ── Summary para ── */
+    .summary-para {
+      font-size: .875rem;
+      color: var(--gray-600);
+      line-height: 1.85;
+      background: #eff6ff;
+      border-left: 3px solid var(--blue);
+      border-radius: 0 4px 4px 0;
+      padding: .7rem 1rem;
+      margin-bottom: 1rem;
     }
-    th, td {
-      padding: .65rem 1rem; text-align: right; white-space: nowrap;
-      border-bottom: 1px solid var(--border);
-    }
-    th { background: var(--surface); color: var(--muted); font-weight: 600; text-align: center; }
-    td:first-child, th:first-child { text-align: left; }
-    tr:hover td { background: rgba(56,189,248,.05); }
-    .pos { color: var(--red); }
-    .neg { color: var(--green); }
-    .warn{ color: var(--accent4); }
+    .summary-para strong { color: var(--navy); }
 
-    /* ── 3. 图表 ── */
-    .charts-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 1.5rem;
-    }
-    .chart-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: .75rem; padding: 1.25rem; position: relative;
-    }
-    .chart-card h3 { font-size: .95rem; color: var(--muted); margin-bottom: 1rem; }
-    .chart-card canvas { width: 100% !important; }
+    /* ── Overview Table ── */
+    .ov-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    .ov-table thead tr { background: var(--navy); color: #fff; }
+    .ov-table th { padding: .5rem .9rem; font-weight: 600; text-align: left; }
+    .ov-table td { padding: .5rem .9rem; border-bottom: 1px solid var(--gray-100); vertical-align: middle; }
+    .ov-table tbody tr:nth-child(even) td { background: var(--gray-50); }
+    .ov-table tbody tr:hover td { background: #dbeafe44; }
+    .val-num { font-weight: 700; font-size: .97rem; color: var(--navy); }
+    .chg-up   { color: var(--red);   font-weight: 600; }
+    .chg-down { color: var(--green); font-weight: 600; }
+    .chg-flat { color: var(--gray-400); font-weight: 600; }
+    .interp { color: var(--gray-600); font-size: .8rem; }
 
-    /* ── 4. 预期与风险 ── */
-    .risk-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    /* ── Chart ── */
+    .chart-wrap { position: relative; height: 270px; margin: .2rem 0 1rem; }
+    .chart-analysis {
+      font-size: .85rem;
+      color: var(--gray-600);
+      line-height: 1.85;
+      background: var(--gray-50);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 4px 4px 0;
+      padding: .7rem 1rem;
     }
-    @media(max-width:640px){ .risk-grid { grid-template-columns: 1fr; } .charts-grid { grid-template-columns: 1fr; } }
-    .risk-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: .75rem; padding: 1.25rem;
-    }
-    .risk-card h3 { font-size: .95rem; margin-bottom: .8rem; }
-    .risk-card ul { padding-left: 1.1rem; font-size: .88rem; color: var(--muted); }
-    .risk-card ul li { margin-bottom: .45rem; }
-    .risk-expect h3 { color: var(--green); }
-    .risk-risk   h3 { color: var(--red); }
-    .risk-policy h3 { color: var(--accent); }
-    .risk-watch  h3 { color: var(--accent4); }
 
+    /* ── Outlook ── */
+    .outlook-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .ob {
+      border-radius: 5px;
+      padding: .85rem 1rem;
+      font-size: .84rem;
+    }
+    .ob h4 { font-size: .87rem; font-weight: 700; margin-bottom: .45rem; }
+    .ob ul { padding-left: 1.1rem; color: var(--gray-600); }
+    .ob ul li { margin-bottom: .3rem; }
+    .ob-base   { background: #eff6ff; border: 1px solid #bfdbfe; }
+    .ob-base h4 { color: #1d4ed8; }
+    .ob-risk   { background: #fff1f2; border: 1px solid #fecdd3; }
+    .ob-risk h4 { color: var(--red); }
+    .ob-policy { background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .ob-policy h4 { color: #15803d; }
+    .ob-watch  { background: #fffbeb; border: 1px solid #fde68a; }
+    .ob-watch h4 { color: var(--amber); }
+
+    /* ── Footer ── */
     footer {
-      text-align: center; color: var(--muted); font-size: .8rem;
-      padding: 2rem; border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: .78rem;
+      color: var(--gray-400);
+      padding: 1.4rem;
+      background: #fff;
+      border-top: 2px solid var(--navy);
     }
-    .badge {
-      display: inline-block; background: rgba(56,189,248,.1);
-      border: 1px solid var(--accent); color: var(--accent);
-      border-radius: 4px; font-size: .72rem; padding: 0 .4rem; vertical-align: middle;
+    footer a { color: var(--blue); text-decoration: none; }
+    footer p + p { margin-top: .35rem; }
+
+    @media (max-width: 620px) {
+      .outlook-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>中国月度宏观经济分析</h1>
-  <p>数据来源：国家统计局 · 中国人民银行 · 中国物流与采购联合会 &nbsp;|&nbsp;
-     每月16日更新 &nbsp;|&nbsp; 数据截至 <span id="update-time"></span></p>
+  <h1>中国宏观经济分析报告</h1>
+  <p class="header-meta">
+    数据来源：国家统计局 · 中国人民银行 · 中国物流与采购联合会 &nbsp;·&nbsp;
+    数据截至 <strong id="update-time"></strong> &nbsp;·&nbsp; 每月16日更新
+  </p>
 </header>
 
 <nav>
-  <a href="#conclusion">分析结论</a>
-  <a href="#table">数据表格</a>
-  <a href="#charts">趋势图表</a>
-  <a href="#outlook">预期与风险</a>
+  <a href="#overview">核心指标</a>
+  <a href="#pmi">PMI分析</a>
+  <a href="#cpi">CPI分析</a>
+  <a href="#money">M1/M2分析</a>
+  <a href="#sf">社融分析</a>
+  <a href="#outlook">综合展望</a>
 </nav>
 
 <main>
 
-  <!-- ── 1. 分析结论 ── -->
-  <section id="conclusion">
-    <h2>一、分析结论</h2>
-    <div class="conclusion-grid" id="kpi-cards"></div>
-    <div class="summary-box" id="summary-text"></div>
-  </section>
-
-  <!-- ── 2. 数据表格 ── -->
-  <section id="table">
-    <h2>二、核心指标数据表</h2>
-    <div class="table-wrap">
-      <table id="macro-table">
+  <!-- 1. 核心指标 -->
+  <div class="card" id="overview">
+    <div class="card-header"><h2>一、核心指标概况与综合判断</h2></div>
+    <div class="card-body">
+      <div class="summary-para" id="summary-para"></div>
+      <table class="ov-table">
         <thead>
           <tr>
-            <th>月份</th>
-            <th>制造业PMI</th>
-            <th>CPI同比(%)</th>
-            <th>M1同比(%)</th>
-            <th>M2同比(%)</th>
-            <th>社融存量同比(%)</th>
-            <th>新增社融(亿元)</th>
+            <th>指标名称</th>
+            <th>当期值</th>
+            <th>环比变化</th>
+            <th>解读</th>
           </tr>
         </thead>
-        <tbody id="table-body"></tbody>
+        <tbody id="ov-tbody"></tbody>
       </table>
     </div>
-  </section>
+  </div>
 
-  <!-- ── 3. 趋势图 ── -->
-  <section id="charts">
-    <h2>三、数据趋势图</h2>
-    <div class="charts-grid">
-      <div class="chart-card">
-        <h3>制造业PMI走势（荣枯线=50）</h3>
-        <canvas id="chartPMI"></canvas>
-      </div>
-      <div class="chart-card">
-        <h3>CPI同比（%）</h3>
-        <canvas id="chartCPI"></canvas>
-      </div>
-      <div class="chart-card">
-        <h3>M1 / M2 同比增速（%）</h3>
-        <canvas id="chartM"></canvas>
-      </div>
-      <div class="chart-card">
-        <h3>社融存量同比（%）& 新增社融（亿元）</h3>
-        <canvas id="chartSF"></canvas>
-      </div>
+  <!-- 2. PMI -->
+  <div class="card" id="pmi">
+    <div class="card-header"><h2>二、PMI趋势分析</h2></div>
+    <div class="card-body">
+      <div class="chart-wrap"><canvas id="chartPMI"></canvas></div>
+      <div class="chart-analysis" id="pmi-text"></div>
     </div>
-  </section>
+  </div>
 
-  <!-- ── 4. 预期与风险 ── -->
-  <section id="outlook">
-    <h2>四、预期与风险</h2>
-    <div class="risk-grid" id="risk-grid"></div>
-  </section>
+  <!-- 3. CPI -->
+  <div class="card" id="cpi">
+    <div class="card-header"><h2>三、CPI趋势分析</h2></div>
+    <div class="card-body">
+      <div class="chart-wrap"><canvas id="chartCPI"></canvas></div>
+      <div class="chart-analysis" id="cpi-text"></div>
+    </div>
+  </div>
+
+  <!-- 4. M1/M2 -->
+  <div class="card" id="money">
+    <div class="card-header"><h2>四、M1/M2货币供应趋势分析</h2></div>
+    <div class="card-body">
+      <div class="chart-wrap"><canvas id="chartM"></canvas></div>
+      <div class="chart-analysis" id="m-text"></div>
+    </div>
+  </div>
+
+  <!-- 5. 社融 -->
+  <div class="card" id="sf">
+    <div class="card-header"><h2>五、社会融资规模趋势分析</h2></div>
+    <div class="card-body">
+      <div class="chart-wrap"><canvas id="chartSF"></canvas></div>
+      <div class="chart-analysis" id="sf-text"></div>
+    </div>
+  </div>
+
+  <!-- 6. 展望 -->
+  <div class="card" id="outlook">
+    <div class="card-header"><h2>六、综合分析与未来展望</h2></div>
+    <div class="card-body">
+      <div class="outlook-grid" id="outlook-grid"></div>
+    </div>
+  </div>
 
 </main>
 
 <footer>
   <p>本页面数据仅供参考，不构成投资建议。</p>
-  <p style="margin-top:.6rem;">
-    <strong style="color:var(--text);">数据来源</strong><br>
-    制造业PMI：<a href="http://www.stats.gov.cn" target="_blank" style="color:var(--accent);">国家统计局</a> &amp;
-    <a href="http://www.cflp.org.cn" target="_blank" style="color:var(--accent);">中国物流与采购联合会</a>（每月最后一日发布）<br>
-    CPI：<a href="http://www.stats.gov.cn" target="_blank" style="color:var(--accent);">国家统计局</a>（每月10—15日发布）<br>
-    M1 / M2 / 社会融资规模：<a href="http://www.pbc.gov.cn" target="_blank" style="color:var(--accent);">中国人民银行</a>（每月10—15日发布）<br>
-    数据每月16日更新，M1采用2025年1月起修订后新口径。
+  <p>
+    制造业PMI：<a href="http://www.stats.gov.cn" target="_blank">国家统计局</a> &amp;
+    <a href="http://www.cflp.org.cn" target="_blank">中国物流与采购联合会</a>（每月最后一日）&emsp;
+    CPI：<a href="http://www.stats.gov.cn" target="_blank">国家统计局</a>（每月10—15日）&emsp;
+    M1/M2/社融：<a href="http://www.pbc.gov.cn" target="_blank">中国人民银行</a>（每月10—15日）
   </p>
-  <p style="margin-top:.6rem;">Contact: <a href="mailto:Wilson@hudongpai.com" style="color:var(--accent);">Wilson@hudongpai.com</a></p>
+  <p>M1采用2025年1月起修订后新口径 &emsp;|&emsp; Contact: <a href="mailto:Wilson@hudongpai.com">Wilson@hudongpai.com</a></p>
 </footer>
 
 <script>
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════════
 //  宏观数据（每月16日更新此处）
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════════════
 const DATA = {
   updateDate: "2026年4月",
-  months: [
-    "2025-05","2025-06","2025-07","2025-08","2025-09",
-    "2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04"
-  ],
+  months:  ["2025-05","2025-06","2025-07","2025-08","2025-09",
+             "2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04"],
   pmi:     [49.5, 49.7, 49.3, 49.4, 49.8, 49.0, 49.2, 50.1, 49.3, 49.0, 50.4, 50.3],
   cpi:     [-0.1,  0.1,  0.0, -0.4, -0.3,  0.2,  0.7,  0.8,  0.2,  1.3,  1.0,  1.2],
   m1:      [ 2.3,  4.6,  5.6,  6.0,  7.2,  6.2,  4.9,  3.8,  4.9,  5.9,  5.1,  5.0],
@@ -245,231 +285,274 @@ const DATA = {
   sfNew:   [22900,42000,11600,25700,35300, 8150,24900,22100,72200,23800,52300, 6207]
 };
 
-// 最新月数据（末尾）
-const latest = {
-  pmi:  DATA.pmi.at(-1),
-  cpi:  DATA.cpi.at(-1),
-  m1:   DATA.m1.at(-1),
-  m2:   DATA.m2.at(-1),
-  sf:   DATA.sfStock.at(-1),
-  sfN:  DATA.sfNew.at(-1),
-  pmiPrev: DATA.pmi.at(-2),
-  cpiPrev: DATA.cpi.at(-2),
-};
+const last  = arr => arr[arr.length - 1];
+const prev  = arr => arr[arr.length - 2];
+const delta = arr => +(last(arr) - prev(arr)).toFixed(1);
+const fmt1  = v => v.toFixed(1);
+const sign  = v => v > 0 ? `+${fmt1(v)}` : fmt1(v);
 
-// ── 更新时间 ──
 document.getElementById('update-time').textContent = DATA.updateDate;
 
-// ── KPI 卡片 ──
-function delta(now, prev) {
-  const d = (now - prev).toFixed(1);
-  return d > 0 ? `▲ ${d}` : `▼ ${Math.abs(d)}`;
-}
-const cards = [
-  { tag:'制造业PMI', val: latest.pmi.toFixed(1),
-    cls: latest.pmi >= 50 ? 'up' : 'down',
-    desc:`较上月 ${delta(latest.pmi, latest.pmiPrev)}，${latest.pmi>=50?'处于扩张区间':'处于收缩区间'}` },
-  { tag:'CPI同比', val: latest.cpi.toFixed(1)+'%',
-    cls: latest.cpi < 0 ? 'down' : latest.cpi < 1 ? 'neutral' : 'up',
-    desc:`较上月 ${delta(latest.cpi, latest.cpiPrev)} pct，通缩压力${latest.cpi<0?'持续':'缓解'}` },
-  { tag:'M1同比', val: latest.m1.toFixed(1)+'%',
-    cls: latest.m1 >= 0 ? 'up' : 'down',
-    desc:`实体经济活跃度${latest.m1<0?'偏弱，企业活期存款收缩':latest.m1>=5?'明显改善，资金活化程度提升':'回暖，企业流动性边际好转'}` },
-  { tag:'M2同比', val: latest.m2.toFixed(1)+'%',
-    cls:'neutral',
-    desc:`流动性整体充裕，货币供应增速稳中偏高` },
-  { tag:'社融存量同比', val: latest.sf.toFixed(1)+'%',
-    cls:'neutral',
-    desc:`信贷支撑实体力度${latest.sf>=8?'较强':'偏弱'}，政府债券是主要贡献项` },
+// ── 综合判断段落 ──
+document.getElementById('summary-para').innerHTML =
+  `<strong>综合判断（${DATA.updateDate}）：</strong>` +
+  `核心指标呈现<strong>${last(DATA.pmi)>=50?'温和扩张、':'弱复苏、'}价格回正、流动性充裕</strong>格局。` +
+  `制造业PMI ${fmt1(last(DATA.pmi))}，${last(DATA.pmi)>=50?'连续站稳扩张区间，生产景气持续':'低于荣枯线，扩张动能偏弱'}；` +
+  `CPI同比 ${fmt1(last(DATA.cpi))}%，${last(DATA.cpi)>=1?'价格指标全面回正，需求端修复态势明确':last(DATA.cpi)>0?'小幅为正，通缩压力持续缓解':'价格偏弱，内需修复仍在进行中'}；` +
+  `M1同比 ${fmt1(last(DATA.m1))}%，资金活化程度${last(DATA.m1)>=5?'明显改善':'边际回暖'}；` +
+  `M2同比 ${fmt1(last(DATA.m2))}%，货币供应充裕；` +
+  `社融存量同比 ${fmt1(last(DATA.sfStock))}%，政府债券持续发力，实体融资环境总体稳定。`;
+
+// ── 指标概览表 ──
+const indicators = [
+  {
+    name: '制造业PMI', goodUp: true,
+    val: fmt1(last(DATA.pmi)), arr: DATA.pmi, unit: '',
+    interp: last(DATA.pmi) >= 50
+      ? '站稳扩张区间，生产与新订单双双回暖'
+      : '处于收缩区间，生产扩张动能待加强'
+  },
+  {
+    name: 'CPI同比', goodUp: false,
+    val: fmt1(last(DATA.cpi)) + '%', arr: DATA.cpi, unit: 'pct',
+    interp: last(DATA.cpi) < 0 ? '物价持续下行，内需偏弱，通缩压力仍存'
+           : last(DATA.cpi) < 1 ? '价格温和回正，通缩压力边际缓解'
+           : '温和通胀格局初步确立，需求修复态势明确'
+  },
+  {
+    name: 'M1同比增速', goodUp: true,
+    val: fmt1(last(DATA.m1)) + '%', arr: DATA.m1, unit: 'pct',
+    interp: last(DATA.m1) >= 5 ? '资金活化明显，企业活期存款持续扩张'
+           : last(DATA.m1) >= 0 ? '转正回暖，实体经济活跃度边际提升'
+           : '企业活期资金收缩，经营预期偏保守'
+  },
+  {
+    name: 'M2同比增速', goodUp: true,
+    val: fmt1(last(DATA.m2)) + '%', arr: DATA.m2, unit: 'pct',
+    interp: '广义货币供应充裕，流动性整体宽松'
+  },
+  {
+    name: '社融存量同比', goodUp: true,
+    val: fmt1(last(DATA.sfStock)) + '%', arr: DATA.sfStock, unit: 'pct',
+    interp: last(DATA.sfStock) >= 8
+      ? '政府债持续发力，实体融资环境保持宽松'
+      : '增速小幅收窄，结构持续优化中'
+  },
 ];
-const kpiEl = document.getElementById('kpi-cards');
-cards.forEach(c => {
-  kpiEl.innerHTML += `
-    <div class="card">
-      <div class="tag">${c.tag}</div>
-      <div class="val ${c.cls}">${c.val}</div>
-      <p>${c.desc}</p>
-    </div>`;
+
+const tbody = document.getElementById('ov-tbody');
+indicators.forEach(ind => {
+  const d = delta(ind.arr);
+  let cls, label;
+  if (Math.abs(d) < 0.05) {
+    cls = 'chg-flat'; label = '─ 持平';
+  } else if (d > 0) {
+    cls = ind.goodUp ? 'chg-up' : 'chg-down';
+    label = `▲ +${fmt1(d)}${ind.unit ? ' '+ind.unit : ''}`;
+  } else {
+    cls = ind.goodUp ? 'chg-down' : 'chg-up';
+    label = `▼ ${fmt1(d)}${ind.unit ? ' '+ind.unit : ''}`;
+  }
+  tbody.innerHTML += `<tr>
+    <td><strong>${ind.name}</strong></td>
+    <td class="val-num">${ind.val}</td>
+    <td class="${cls}">${label}</td>
+    <td class="interp">${ind.interp}</td>
+  </tr>`;
 });
 
-// ── 综合结论 ──
-document.getElementById('summary-text').innerHTML = `
-  <strong>综合判断（${DATA.updateDate}）：</strong>
-  当前中国经济处于<strong>${latest.pmi>=50?'温和扩张':'弱复苏'}</strong>通道。制造业PMI ${latest.pmi>=50?'站稳扩张区间，生产与新订单双双回暖':'维持收缩区间，内需回暖节奏偏慢'}。
-  CPI同比${latest.cpi<0?'持续为负，通缩风险仍需警惕':latest.cpi<1?'小幅回正，通缩压力边际缓解':'升至'+latest.cpi.toFixed(1)+'%，温和通胀格局初步形成，需求端有所修复'}。
-  M1同比 ${latest.m1.toFixed(1)}%，${latest.m1>=5?'资金活化程度明显改善，企业活期存款扩张':latest.m1>=0?'转正回暖，实体经济活跃度边际提升':'负增长，企业经营预期偏保守'}；
-  M2同比 ${latest.m2.toFixed(1)}%，流动性整体充裕，货币供应增速维持高位。
-  社融存量同比 ${latest.sf.toFixed(1)}%，${latest.sf>=8.5?'信贷支撑力度较强':latest.sf>=8?'信贷节奏稳健':'增速有所回落，结构优化仍在推进中'}，政府债券是主要贡献项。
-  整体来看，宏观政策组合效果持续释放，价格指标转正印证需求修复，但外需不确定性与国内信贷结构分化仍需持续跟踪。`;
-
-// ── 数据表格 ──
-const tbody = document.getElementById('table-body');
-DATA.months.forEach((m, i) => {
-  const pmiCls = DATA.pmi[i] >= 50 ? 'pos' : 'neg';
-  const cpiCls = DATA.cpi[i] < 0 ? 'neg' : DATA.cpi[i] > 2 ? 'pos' : '';
-  const m1Cls  = DATA.m1[i] < 0 ? 'neg' : 'pos';
-  tbody.innerHTML += `
-    <tr>
-      <td>${m}</td>
-      <td class="${pmiCls}">${DATA.pmi[i].toFixed(1)}</td>
-      <td class="${cpiCls}">${DATA.cpi[i].toFixed(1)}</td>
-      <td class="${m1Cls}">${DATA.m1[i].toFixed(1)}</td>
-      <td>${DATA.m2[i].toFixed(1)}</td>
-      <td>${DATA.sfStock[i].toFixed(1)}</td>
-      <td>${DATA.sfNew[i].toLocaleString()}</td>
-    </tr>`;
-});
-
-// ── 图表通用配置 ──
-const baseFont  = { family:"'PingFang SC','Microsoft YaHei',system-ui", size:12 };
-const gridColor = 'rgba(51,65,85,.6)';
-Chart.defaults.color = '#94a3b8';
-Chart.defaults.font  = baseFont;
-
-function lineDataset(label, data, color, opts={}) {
-  return {
-    label, data, borderColor: color, backgroundColor: color+'22',
-    borderWidth: 2, pointRadius: 3, pointHoverRadius: 5,
-    tension: .35, fill: opts.fill ?? false, ...opts
-  };
-}
-function baseOptions(title) {
-  return {
-    responsive: true,
-    plugins: {
-      legend: { position:'top', labels:{ font: baseFont, boxWidth:12 } },
-      tooltip: { mode:'index', intersect:false }
-    },
-    scales: {
-      x: { grid:{ color: gridColor }, ticks:{ maxRotation:45 } },
-      y: { grid:{ color: gridColor } }
-    }
-  };
-}
+// ── 图表通用 ──
+Chart.defaults.font.family = "'PingFang SC','Microsoft YaHei',system-ui";
+Chart.defaults.font.size   = 12;
+Chart.defaults.color       = '#475569';
+const gridColor = '#e2e8f0';
+const baseOpts  = {
+  responsive: true, maintainAspectRatio: false,
+  plugins: {
+    legend: { position: 'top', labels: { boxWidth: 12, padding: 14 } },
+    tooltip: { mode: 'index', intersect: false }
+  },
+  scales: {
+    x: { grid: { color: gridColor } },
+    y: { grid: { color: gridColor } }
+  }
+};
 
 // PMI
 new Chart(document.getElementById('chartPMI'), {
-  type:'line',
-  data:{
+  type: 'line',
+  data: {
     labels: DATA.months,
-    datasets:[
-      lineDataset('制造业PMI', DATA.pmi, '#38bdf8', {fill:true}),
-      { label:'荣枯线(50)', data: DATA.months.map(()=>50),
-        borderColor:'#fb923c', borderDash:[6,3], borderWidth:1.5,
-        pointRadius:0, fill:false }
-    ]
-  },
-  options: {
-    ...baseOptions(),
-    scales:{
-      x:{ grid:{color:gridColor}, ticks:{maxRotation:45} },
-      y:{ grid:{color:gridColor}, suggestedMin:48, suggestedMax:52 }
-    }
-  }
-});
-
-// CPI
-new Chart(document.getElementById('chartCPI'), {
-  type:'bar',
-  data:{
-    labels: DATA.months,
-    datasets:[{
-      label:'CPI同比(%)',
-      data: DATA.cpi,
-      backgroundColor: DATA.cpi.map(v => v < 0 ? '#4ade8088' : '#38bdf888'),
-      borderColor:     DATA.cpi.map(v => v < 0 ? '#4ade80' : '#38bdf8'),
-      borderWidth: 1.5
-    }]
-  },
-  options: baseOptions()
-});
-
-// M1/M2
-new Chart(document.getElementById('chartM'), {
-  type:'line',
-  data:{
-    labels: DATA.months,
-    datasets:[
-      lineDataset('M1同比(%)', DATA.m1, '#818cf8'),
-      lineDataset('M2同比(%)', DATA.m2, '#34d399'),
-    ]
-  },
-  options: baseOptions()
-});
-
-// 社融
-new Chart(document.getElementById('chartSF'), {
-  type:'bar',
-  data:{
-    labels: DATA.months,
-    datasets:[
+    datasets: [
       {
-        label:'新增社融(亿元)',
-        data: DATA.sfNew,
-        backgroundColor:'#38bdf844',
-        borderColor:'#38bdf8',
-        borderWidth:1.5,
-        yAxisID:'y'
+        label: '制造业PMI',
+        data: DATA.pmi,
+        borderColor: '#163172', backgroundColor: 'rgba(22,49,114,.08)',
+        borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#163172',
+        tension: .3, fill: true
       },
       {
-        label:'社融存量同比(%)',
-        data: DATA.sfStock,
-        type:'line',
-        borderColor:'#fb923c',
-        backgroundColor:'transparent',
-        borderWidth:2, pointRadius:3,
-        yAxisID:'y1'
+        label: '荣枯线 (50)',
+        data: DATA.months.map(() => 50),
+        borderColor: '#dc2626', borderDash: [5, 4],
+        borderWidth: 1.5, pointRadius: 0, fill: false
       }
     ]
   },
-  options:{
-    ...baseOptions(),
-    scales:{
-      x:{ grid:{color:gridColor}, ticks:{maxRotation:45} },
-      y:{ grid:{color:gridColor}, position:'left', title:{display:true,text:'亿元'} },
-      y1:{ grid:{drawOnChartArea:false}, position:'right', title:{display:true,text:'%'}, suggestedMin:6, suggestedMax:10 }
+  options: { ...baseOpts, scales: {
+    x: { grid: { color: gridColor } },
+    y: { grid: { color: gridColor }, suggestedMin: 48, suggestedMax: 52 }
+  }}
+});
+document.getElementById('pmi-text').innerHTML =
+  `2025年5月以来，制造业PMI整体在荣枯线（50）附近震荡运行，呈现"弱复苏"特征。` +
+  `${DATA.updateDate}PMI录得 <strong>${fmt1(last(DATA.pmi))}</strong>，` +
+  `环比${delta(DATA.pmi) > 0 ? '回升' : '回落'} ${Math.abs(delta(DATA.pmi)).toFixed(1)} 个点，` +
+  `${last(DATA.pmi) >= 50 ? '连续站稳扩张区间，生产景气持续，新订单与在手订单同步改善。' : '仍处于收缩区间，需关注新订单与出口订单的持续性。'}` +
+  `从结构看，大型企业景气度优于中小企业，出口订单受外需波动影响仍存不确定性，后续应关注PMI能否保持扩张态势。`;
+
+// CPI
+new Chart(document.getElementById('chartCPI'), {
+  type: 'bar',
+  data: {
+    labels: DATA.months,
+    datasets: [{
+      label: 'CPI同比增速 (%)',
+      data: DATA.cpi,
+      backgroundColor: DATA.cpi.map(v => v < 0 ? '#dc262677' : '#163172aa'),
+      borderColor:     DATA.cpi.map(v => v < 0 ? '#dc2626' : '#163172'),
+      borderWidth: 1.5, borderRadius: 3
+    }]
+  },
+  options: baseOpts
+});
+document.getElementById('cpi-text').innerHTML =
+  `CPI同比自2025年中低点持续回升，${DATA.updateDate}录得 <strong>${fmt1(last(DATA.cpi))}%</strong>，` +
+  `${last(DATA.cpi) >= 1
+    ? '价格指标连续位于1%以上，温和通胀格局初步确立，居民消费需求出现实质性改善。'
+    : last(DATA.cpi) > 0
+    ? '价格指标维持正增长，通缩压力持续缓解，但回升幅度仍偏低，需求侧修复尚需时间。'
+    : '物价同比偏低，内需回暖仍然温和，需关注通缩压力是否进一步扩散。'}` +
+  `食品价格与能源价格是主要波动项，核心CPI相对稳定；消费促进政策成效持续显现，` +
+  `预计全年CPI中枢将维持在 <strong>1% 左右</strong>，温和通胀有望成为全年基调。`;
+
+// M1/M2
+new Chart(document.getElementById('chartM'), {
+  type: 'line',
+  data: {
+    labels: DATA.months,
+    datasets: [
+      {
+        label: 'M1同比 (%)',
+        data: DATA.m1,
+        borderColor: '#2563eb', backgroundColor: 'rgba(37,99,235,.08)',
+        borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#2563eb',
+        tension: .3, fill: true
+      },
+      {
+        label: 'M2同比 (%)',
+        data: DATA.m2,
+        borderColor: '#16a34a', backgroundColor: 'rgba(22,163,74,.06)',
+        borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#16a34a',
+        tension: .3, fill: true
+      }
+    ]
+  },
+  options: baseOpts
+});
+const scissor = +(last(DATA.m1) - last(DATA.m2)).toFixed(1);
+document.getElementById('m-text').innerHTML =
+  `M1同比 <strong>${fmt1(last(DATA.m1))}%</strong>，` +
+  `${last(DATA.m1) >= 5
+    ? '资金活化程度明显提升，企业活期存款持续扩张，微观主体信心回暖信号增强。'
+    : last(DATA.m1) >= 0
+    ? '保持正增长，企业流动性偏好边际改善，但活化程度仍低于历史均值。'
+    : 'M1仍为负增长，企业活期资金收缩，经营预期偏保守。'}` +
+  `M2同比 <strong>${fmt1(last(DATA.m2))}%</strong>，广义货币供应充裕，货币政策维持宽松取向。` +
+  `M1-M2剪刀差为 <strong>${scissor} pct</strong>，` +
+  `${scissor < -2 ? '实体经济资金活化仍明显落后于整体货币扩张，流动性传导效率有待提升。' : '两者差距收窄，货币向实体经济传导效率有所改善。'}`;
+
+// 社融
+new Chart(document.getElementById('chartSF'), {
+  type: 'bar',
+  data: {
+    labels: DATA.months,
+    datasets: [
+      {
+        label: '新增社融 (亿元)',
+        data: DATA.sfNew,
+        backgroundColor: '#163172aa',
+        borderColor: '#163172',
+        borderWidth: 1, borderRadius: 3,
+        yAxisID: 'y'
+      },
+      {
+        label: '社融存量同比 (%)',
+        data: DATA.sfStock,
+        type: 'line',
+        borderColor: '#d97706',
+        backgroundColor: 'transparent',
+        borderWidth: 2.5, pointRadius: 4, pointBackgroundColor: '#d97706',
+        yAxisID: 'y1'
+      }
+    ]
+  },
+  options: {
+    ...baseOpts,
+    scales: {
+      x: { grid: { color: gridColor } },
+      y:  { grid: { color: gridColor }, position: 'left',
+            title: { display: true, text: '亿元', color: '#475569' } },
+      y1: { grid: { drawOnChartArea: false }, position: 'right',
+            title: { display: true, text: '%', color: '#475569' },
+            suggestedMin: 6, suggestedMax: 10 }
     }
   }
 });
+document.getElementById('sf-text').innerHTML =
+  `${DATA.updateDate}新增社融 <strong>${last(DATA.sfNew).toLocaleString()} 亿元</strong>，` +
+  `${last(DATA.sfNew) < 10000
+    ? '当月新增规模偏低，属季节性回落，政府债与企业债为主要支撑项。'
+    : '单月规模较大，政府债券加快发行是主要贡献。'}` +
+  `社融存量同比 <strong>${fmt1(last(DATA.sfStock))}%</strong>，` +
+  `${last(DATA.sfStock) >= 8
+    ? '整体维持较高增速，实体融资环境保持宽松，对经济的支撑力度较强。'
+    : '增速有所回落，仍处合理区间，信贷结构持续优化。'}` +
+  `政府债券是近期社融增量的核心驱动，居民中长期贷款与企业信贷的回升情况是判断内生融资需求的重要观察窗口。`;
 
-// ── 预期与风险 ──
-const risks = [
-  { cls:'risk-expect', title:'📈 基准预期',
-    items:[
-      'PMI料维持50上方震荡，制造业扩张势头有望延续，但外需扰动仍是变数',
-      'CPI同比已回升至1%以上，全年温和通胀中枢有望维持在1%附近',
-      'M1保持正增长，企业流动性改善趋势延续，投资意愿有望逐步修复',
-      '社融增速虽小幅回落，但政府债持续发力，全年社融增量有支撑',
-    ]},
-  { cls:'risk-risk', title:'⚠️ 主要风险',
-    items:[
-      '外需：全球贸易摩擦升温，出口订单或承压，制造业景气度面临考验',
-      '内需：居民消费信心修复偏慢，地产投资回暖持续性仍有不确定性',
-      '通胀反弹：能源与食品价格波动或推高CPI，需关注结构性通胀风险',
-      '地缘：地缘政治紧张局势持续影响跨境供应链与外资流入',
-    ]},
-  { cls:'risk-policy', title:'🏛️ 政策关注',
-    items:[
-      '财政：超长期特别国债发行节奏与基建落地效率是关键观察点',
-      '货币：降准窗口仍开放，关注汇率弹性与跨境资本流动变化',
-      '地产：白名单项目融资落地、收储政策扩围是重要边际',
-      '消费：服务消费支持政策与以旧换新补贴是内需修复核心抓手',
-    ]},
-  { cls:'risk-watch', title:'🔍 重点跟踪',
-    items:[
-      '每月16日前后：CPI / PPI、社融、M1/M2数据',
-      '月末：PMI（制造业 & 服务业）',
-      '季度：GDP、固定资产投资、社会消费品零售、工业增加值',
-      '高频：乘用车销量、螺纹钢价格、电煤耗量、BDI指数',
-    ]},
+// ── 展望 ──
+const items = [
+  { cls: 'ob-base', title: '📊 基本判断', list: [
+    `PMI料维持50上方，制造业扩张态势有望延续`,
+    `CPI全年中枢有望在1%附近，温和通胀格局初步确立`,
+    `M1持续改善，企业流动性偏好与投资意愿逐步修复`,
+    `社融增量有政府债支撑，全年信贷总量有保障`,
+  ]},
+  { cls: 'ob-risk', title: '⚠️ 主要风险', list: [
+    '外需：全球贸易摩擦升温，出口订单承压',
+    '内需：居民消费信心修复节奏慢于预期',
+    '通胀反弹：能源食品价格波动推高CPI',
+    '地缘：供应链稳定性与外资流入受扰',
+  ]},
+  { cls: 'ob-policy', title: '🏛️ 政策关注', list: [
+    '财政：超长期特别国债发行节奏与落地效率',
+    '货币：降准窗口仍开放，关注汇率约束',
+    '地产：白名单融资落地、收储政策扩围',
+    '消费：服务消费政策与以旧换新补贴扩围',
+  ]},
+  { cls: 'ob-watch', title: '🔍 重点跟踪', list: [
+    '每月16日：CPI/PPI、M1/M2、社融数据',
+    '月末：PMI（制造业 & 服务业）',
+    '季度：GDP、固投、社零、工增',
+    '高频：乘用车销量、螺纹钢、电煤耗量',
+  ]},
 ];
-const riskEl = document.getElementById('risk-grid');
-risks.forEach(r => {
-  riskEl.innerHTML += `
-    <div class="risk-card ${r.cls}">
-      <h3>${r.title}</h3>
-      <ul>${r.items.map(i=>`<li>${i}</li>`).join('')}</ul>
-    </div>`;
+const og = document.getElementById('outlook-grid');
+items.forEach(o => {
+  og.innerHTML += `<div class="ob ${o.cls}">
+    <h4>${o.title}</h4>
+    <ul>${o.list.map(i => `<li>${i}</li>`).join('')}</ul>
+  </div>`;
 });
 </script>
 </body>
